@@ -1,24 +1,31 @@
 import cv2
-import matplotlib.pyplot as plt
+
+
+
+# Load the image
 
 image = cv2.imread('gas.jpg')
 
-# Convert BGR to RGB
-image_rgb = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
-plt.imshow(image_rgb)
-plt.title("RGB Image")
-plt.show()
 
-# Convert to Grayscale
-gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-plt.imshow(gray_image, cmap='gray')
-plt.title("Grayscale Image")
-plt.show()
 
-# Cropping the image
-# Assume we know the region we want: rows 100 to 300, columns 200 to 400
-cropped_image = image[100:300, 200:400]
-cropped_rgb = cv2.cvtColor(cropped_image, cv2.COLOR_BGR2RGB)
-plt.imshow(cropped_rgb)
-plt.title("Cropped Region")
-plt.show()
+# Resize the window to a specific size without resizing the image
+
+cv2.namedWindow('Loaded Image', cv2.WINDOW_NORMAL)  # Create a resizable window
+
+cv2.resizeWindow('Loaded Image', 800, 500)  # Set the window size to 800x500 (width x height)
+
+
+
+# Display the image in the resized window
+
+cv2.imshow('Loaded Image', image)
+
+cv2.waitKey(0)  # Wait for a key press
+
+cv2.destroyAllWindows()  # Close the window
+
+
+
+# Print image properties
+
+print(f"Image Dimensions: {image.shape}")  # Height, Width, Channels

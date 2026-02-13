@@ -1,27 +1,59 @@
 import cv2
-import numpy as np
-import matplotlib.pyplot as plt
+
+
+
+# Load the image
 
 image = cv2.imread('gas.jpg')
-image_rgb = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
 
-# Rotate the image by 45 degrees around its center
-(h, w) = image.shape[:2]
-center = (w//2, h//2)
-M = cv2.getRotationMatrix2D(center, 45, 1.0)    # rotate by 45 degrees
-rotated = cv2.warpAffine(image, M, (w, h))
 
-rotated_rgb = cv2.cvtColor(rotated, cv2.COLOR_BGR2RGB)
-plt.imshow(rotated_rgb)
-plt.title("Rotated Image")
-plt.show()
 
-# Increase brightness by adding 50 to all pixel values
-# Use cv2.add to avoid negative values or overflow
-brightness_matrix = np.ones(image.shape, dtype="uint8") * 50
-brighter = cv2.add(image, brightness_matrix)
+# Convert the image to grayscale
 
-brighter_rgb = cv2.cvtColor(brighter, cv2.COLOR_BGR2RGB)
-plt.imshow(brighter_rgb)
-plt.title("Brighter Image")
-plt.show()
+gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+
+
+
+# Resize the grayscale image to 224x224
+
+resized_image = cv2.resize(gray_image, (224, 224))
+
+
+
+# Display the resized grayscale image in a single window
+
+cv2.imshow('Processed Image', resized_image)
+
+
+
+# Wait for a key press
+
+key = cv2.waitKey(0)  # Wait indefinitely for a key press
+
+
+
+# Check if the "S" key was pressed (ASCII for 'S' is 83)
+
+if key == ord('s'):
+
+    # Save the processed image when "S" is pressed
+
+    cv2.imwrite('grayscale_resized_image.jpg', resized_image)
+
+    print("Image saved as grayscale_resized_image.jpg")
+
+else:
+
+    print("Image not saved")
+
+
+
+# Close the window
+
+cv2.destroyAllWindows()
+
+
+
+# Print processed image properties
+
+print(f"Processed Image Dimensions: {resized_image.shape}")
